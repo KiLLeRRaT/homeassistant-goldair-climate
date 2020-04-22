@@ -15,14 +15,14 @@ import homeassistant.helpers.config_validation as cv
 from homeassistant.const import (CONF_NAME, CONF_HOST, TEMP_CELSIUS)
 from homeassistant.helpers.discovery import load_platform
 
-VERSION = '0.0.8'
+VERSION = '0.0.9'
 
 _LOGGER = logging.getLogger(__name__)
 
 DOMAIN = 'goldair_climate'
 DATA_GOLDAIR_CLIMATE = 'data_goldair_climate'
 
-API_PROTOCOL_VERSIONS = [3.3, 3.1]
+API_PROTOCOL_VERSIONS = [3.4, 3.3, 3.1]
 
 CONF_DEVICE_ID = 'device_id'
 CONF_LOCAL_KEY = 'local_key'
