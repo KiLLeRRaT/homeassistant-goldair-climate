@@ -15,7 +15,7 @@ import homeassistant.helpers.config_validation as cv
 from homeassistant.const import (CONF_NAME, CONF_HOST, TEMP_CELSIUS)
 from homeassistant.helpers.discovery import load_platform
 
-VERSION = '0.0.9'
+VERSION = '0.0.10'
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -247,4 +247,9 @@ class GoldairTuyaDevice(object):
     def get_key_for_value(obj, value):
         keys = list(obj.keys())
         values = list(obj.values())
+
+        _LOGGER.debug(f'Albert keys: {json.dumps(keys)}')
+        _LOGGER.debug(f'Albert values: {json.dumps(values)}')
+
+
         return keys[values.index(value)]

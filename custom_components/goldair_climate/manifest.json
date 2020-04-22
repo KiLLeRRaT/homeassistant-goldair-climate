@@ -1,10 +1,10 @@
 {
   "domain": "goldair_climate",
   "name": "Goldair WiFi climate devices",
-  "documentation": "https://github.com/nikrolls/homeassistant-goldair-climate",
+  "documentation": "https://github.com/KiLLeRRaT/homeassistant-goldair-climate",
   "dependencies": [],
   "codeowners": [
-    "@nikrolls"
+    "@KiLLeRRaT"
   ],
   "requirements": [
     "pytuya>=7.0.5"
