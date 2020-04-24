@@ -3,7 +3,7 @@ Setup for different kinds of Goldair climate devices
 """
 from homeassistant.const import CONF_HOST
 from custom_components.goldair_climate import (
-    DOMAIN, CONF_TYPE, CONF_TYPE_HEATER, CONF_TYPE_DEHUMIDIFIER, CONF_TYPE_FAN
+    DOMAIN, CONF_TYPE, CONF_TYPE_HEATER, CONF_TYPE_DEHUMIDIFIER, CONF_TYPE_FAN, CONF_TYPE_MODEL
 )
 from custom_components.goldair_climate.heater.climate import GoldairHeater
 from custom_components.goldair_climate.dehumidifier.climate import GoldairDehumidifier

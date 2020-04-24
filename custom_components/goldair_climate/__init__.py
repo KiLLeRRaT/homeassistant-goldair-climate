@@ -15,14 +15,14 @@ import homeassistant.helpers.config_validation as cv
 from homeassistant.const import (CONF_NAME, CONF_HOST, TEMP_CELSIUS)
 from homeassistant.helpers.discovery import load_platform
 
-VERSION = '0.0.10'
+VERSION = '0.0.12'
 
 _LOGGER = logging.getLogger(__name__)
 
 DOMAIN = 'goldair_climate'
 DATA_GOLDAIR_CLIMATE = 'data_goldair_climate'
 
-API_PROTOCOL_VERSIONS = [3.4, 3.3, 3.1]
+API_PROTOCOL_VERSIONS = [3.3, 3.1]
 
 CONF_DEVICE_ID = 'device_id'
 CONF_LOCAL_KEY = 'local_key'
@@ -30,6 +30,7 @@ CONF_TYPE = 'type'
 CONF_TYPE_HEATER = 'heater'
 CONF_TYPE_DEHUMIDIFIER = 'dehumidifier'
 CONF_TYPE_FAN = 'fan'
+CONF_TYPE_MODEL = 'model'
 CONF_CLIMATE = 'climate'
 CONF_DISPLAY_LIGHT = 'display_light'
 CONF_CHILD_LOCK = 'child_lock'
@@ -40,6 +41,7 @@ PLATFORM_SCHEMA = vol.Schema({
     vol.Required(CONF_DEVICE_ID): cv.string,
     vol.Required(CONF_LOCAL_KEY): cv.string,
     vol.Required(CONF_TYPE): vol.In([CONF_TYPE_HEATER, CONF_TYPE_DEHUMIDIFIER, CONF_TYPE_FAN]),
+    vol.Optional(CONF_TYPE_MODEL): cv.string,
     vol.Optional(CONF_CLIMATE, default=True): cv.boolean,
     vol.Optional(CONF_DISPLAY_LIGHT, default=False): cv.boolean,
     vol.Optional(CONF_CHILD_LOCK, default=False): cv.boolean,
@@ -59,7 +61,8 @@ def setup(hass, config):
             device_config.get(CONF_NAME),
             device_config.get(CONF_DEVICE_ID),
             device_config.get(CONF_HOST),
-            device_config.get(CONF_LOCAL_KEY)
+            device_config.get(CONF_LOCAL_KEY),
+            device_config.get(CONF_TYPE_MODEL),
         )
         hass.data[DOMAIN][host] = device
         discovery_info = {CONF_HOST: host, CONF_TYPE: device_config.get(CONF_TYPE)}
@@ -75,7 +78,7 @@ def setup(hass, config):
 
 
 class GoldairTuyaDevice(object):
-    def __init__(self, name, dev_id, address, local_key):
+    def __init__(self, name, dev_id, address, local_key, model):
         """
         Represents a Goldair Tuya-based device.
 
@@ -83,6 +86,7 @@ class GoldairTuyaDevice(object):
             dev_id (str): The device id.
             address (str): The network address.
             local_key (str): The encryption key.
+            model (str): The model of the device.
         """
         import pytuya
         self._name = name
@@ -104,6 +108,7 @@ class GoldairTuyaDevice(object):
         self._CACHE_TIMEOUT = 20
         self._CONNECTION_ATTEMPTS = 4
         self._lock = Lock()
+        self._model = model
 
     @property
     def name(self):
@@ -112,6 +117,10 @@ class GoldairTuyaDevice(object):
     @property
     def temperature_unit(self):
         return self._TEMPERATURE_UNIT
+
+    @property
+    def model(self):
+        return self._model
 
     def set_fixed_properties(self, fixed_properties):
         self._fixed_properties = fixed_properties
@@ -247,9 +256,5 @@ class GoldairTuyaDevice(object):
     def get_key_for_value(obj, value):
         keys = list(obj.keys())
         values = list(obj.values())
-
-        _LOGGER.debug(f'Albert keys: {json.dumps(keys)}')
-        _LOGGER.debug(f'Albert values: {json.dumps(values)}')
-
 
         return keys[values.index(value)]

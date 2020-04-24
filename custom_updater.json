@@ -1,6 +1,6 @@
 {
     "goldair_climate": {
-        "version": "0.0.10",
+        "version": "0.0.12",
         "local_location": "/custom_components/goldair_climate/__init__.py",
         "remote_location": "https://raw.githubusercontent.com/KiLLeRRaT/homeassistant-goldair-climate/master/custom_components/goldair_climate/__init__.py",
         "visit_repo": "https://github.com/KiLLeRRaT/homeassistant-goldair-climate",
