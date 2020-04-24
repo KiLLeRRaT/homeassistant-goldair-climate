@@ -5,6 +5,9 @@ The `goldair_climate` component integrates
 [Goldair WiFi-enabled heaters](http://www.goldair.co.nz/product-catalogue/heating/wifi-heaters), WiFi-enabled [dehumidifiers](http://www.goldair.co.nz/product-catalogue/heating/dehumidifiers), and WiFi-enabled fans](http://www.goldair.co.nz/product-catalogue/cooling/pedestal-fans/40cm-dc-quiet-fan-with-wifi-and-remote-gcpf315) into Home Assistant, enabling control of setting the following parameters via the UI and the following services:
 
 **Heaters**
+
+**Recently added support for Goldair GECO270 WiFi controlled panel heaters**
+
 * **power** (on/off)
 * **mode** (Comfort, Eco, Anti-freeze)
 * **target temperature** (`5`-`35` in Comfort mode, `5`-`21` in Eco mode, in °C)
